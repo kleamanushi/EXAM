@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Dojos And Ninjas</title>
+</head>
+<body>
+    <div class="d-flex justify-content-around bg-light py-3">
+        <h2>Welcome {{userLog.first_name}}!</h2>
+        <div>
+        <a href="/">Dashboard</a>
+        <a href="/logout" ><button class="btn btn-secondary mx-3">Logout</button></a>
+    </div>
+    </div>
+    
+    <div class="container my-5 ">
+        <h4>{{user.first_name}}'s Thoughts</h4>
+        {% for thought in all_thoughts %}
+        <div class="justify-content-center">
+        
+        
+      <div class="border-bottom  border-dark pt-4 w-75">
+          <p>{{thought.thought_content}}</p>
+
+        </div>
+        </div>
+  {% endfor %}
+ 
+
+     
+</body>
+</html>

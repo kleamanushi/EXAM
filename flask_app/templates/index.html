@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <title>Thoughts of user</title>
+   </head>
+   <body>
+      <div class="d-flex justify-content-around bg-light py-3">
+         <h2>Welcome {{user.first_name}}</h2>
+         <a href="/logout"><button class="btn btn-secondary">Logout</button></a>
+      </div>
+      <div class="container my-5">
+         <form action="/create/thought" method="post">
+            <div class="d-flex m-5 input-group-lg">
+               <input type="textarea" placeholder="Post your thought here" name="thought_content" class="form-control mx-2">    
+               <div class="input-group-append">
+                  <input type="submit" value="Add Thought" class="btn btn-primary">
+               </div>
+            </div>
+         </form>
+         <div>
+            <h1>All Thoughts</h1>
+            {% for thought in all_thoughts %}
+            <div class="p-2 my-4 d-flex justify-content-between">
+               <div style="width: 10%;">
+                  <p><a href="/user/{{thought.user_id}}">{{thought.first_name}}</a> says</p>
+               </div>
+               <div class="w-75">
+                  <div class="border  border-dark p-2 mb-3">
+                     <p>{{thought.thought_content}}</p>
+                  </div>
+                  <div class="d-flex justify-content-end mb-3">
+                    {% if user.id in thought.users_who_liked %}
+                    <a href="/thought/{{ thought.id }}/unlike" class="btn btn-danger mr-2">Unlike</a>
+                    {% elif user.id not in thought.users_who_liked %}
+                    <a href="/thought/{{ thought.id }}/like" class="btn btn-outline-primary mr-2">Like</a>
+                    {% endif %}
+                    <a href="/thought/{{ thought.id }}/unlike" class="btn btn-outline-danger mr-2">Unlike</a>
+                    {% if thought.likes > 1 %}
+                    <p>{{ thought.likes }} likes</p>
+                    {% else %}
+                    <p>{{ thought.likes }} like</p>
+                    {% endif %}
+                 </div>
+
+               </div>
+               {%if thought.user_id == user.id %}
+               <a href="/thought/destroy/{{ thought.id }}"><button class="btn btn-info">Delete</button></a> 
+               {% endif %}
+               
+            </div>
+            {% endfor %}
+         </div>
+         
+      </div>
+     
+      </div>
+      </div>
+      </div>
+      <div>
+         {%for user in all_users%}
+         <p>{{user.first_name}}</p>
+         {%endfor%}
+      </div>
+   </body>
+</html>
+
